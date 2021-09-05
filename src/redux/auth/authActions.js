@@ -47,8 +47,4 @@ const handleLogoutUser = () => {
   };
 };
 
-
-export {
-  handleLoginUser,
-  handleLogoutUser,
-}
+export { handleLoginUser, handleLogoutUser };

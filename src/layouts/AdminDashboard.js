@@ -1,12 +1,16 @@
-import React from "react"
-import {connect} from "react-redux"
+import React from "react";
+import { connect } from "react-redux";
+import AdminLogin from "../components/Admin/AdminLogin/AdminLogin";
 
-const AdminDashboard = () => {
-    return (
-        <h1>Admin Dashboard</h1>
-    )
-}
+const AdminDashboard = (props) => {
+    const {isLoggedIn} = props;
+  return isLoggedIn ? (<h1>Hello You are loggedIn</h1>): (<AdminLogin />);
+};
 
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.authReducer.isUserLoggedIn
+  };
+};
 
-
-export default connect(null,null)(AdminDashboard)
+export default connect(mapStateToProps, null)(AdminDashboard);
