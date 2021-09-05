@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   makeStyles,
@@ -11,6 +11,8 @@ import {
   Paper,
   Button,
 } from "@material-ui/core";
+import { connect } from "react-redux";
+import { handleLoginUser } from "../../../redux/auth/authActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,8 +47,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AdminLogin = () => {
+const AdminLogin = (props) => {
   const classes = useStyles();
+  const { error, handleLogin } = props;
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   return (
     <div className={classes.root}>
       <Container
@@ -55,20 +62,43 @@ const AdminLogin = () => {
         component={Paper}
         elevation={2}
       >
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin(formData.email, formData.password);
+          }}
+        >
           <Typography variant="h3" color="initial" align="center">
             Shopeact Admin
           </Typography>
           <Box my={3}>
             <FormControl fullWidth className={classes.textField}>
               <FormLabel className={classes.formLabel}>Email</FormLabel>
-              <TextField id="email" type="email" />
+              <TextField
+                id="email"
+                type="email"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    email: e.target.value,
+                  })
+                }
+              />
             </FormControl>
           </Box>
           <Box my={3}>
             <FormControl fullWidth className={classes.textField}>
               <FormLabel className={classes.formLabel}>Password</FormLabel>
-              <TextField id="password" type="password" />
+              <TextField
+                id="password"
+                type="password"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    password: e.target.value,
+                  })
+                }
+              />
             </FormControl>
           </Box>
           <Box my={3}>
@@ -77,6 +107,7 @@ const AdminLogin = () => {
               color="default"
               className={classes.submitBtn}
               size="large"
+              type="submit"
             >
               Login
             </Button>
@@ -87,4 +118,17 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+const mapStateToProps = (state) => {
+  return {
+    error: state.authReducer.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleLogin: (email, password) =>
+      dispatch(handleLoginUser(email, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminLogin);

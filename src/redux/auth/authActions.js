@@ -1,5 +1,9 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from "./authTypes";
-import firebase from "../../firebase-config";
+import app from "../../firebase-config";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Swal from "sweetalert2";
+
+const auth = getAuth();
 
 const loginSuccess = (user) => {
   return {
@@ -24,13 +28,12 @@ const logoutSuccess = () => {
 
 const handleLoginUser = (email, password) => {
   return (dispatch) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    console.log(email, password, "fahad");
+    signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
         dispatch(loginSuccess(user));
       })
-      .then((error) => {
+      .catch((error) => {
         dispatch(loginFailure(error.message));
       });
   };
@@ -38,7 +41,7 @@ const handleLoginUser = (email, password) => {
 
 const handleLogoutUser = () => {
   return (dispatch) => {
-    firebase
+    app
       .auth()
       .signOut()
       .then(() => {
