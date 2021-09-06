@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "80px 0",
     // padding:"20px",
     border: "none",
+    [theme.breakpoints.down("sm")]: {
+        display:"none"    
+    }
   },
   menuItem: {
     padding: "10px 20px",
