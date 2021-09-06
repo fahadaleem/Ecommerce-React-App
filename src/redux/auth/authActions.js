@@ -1,6 +1,6 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from "./authTypes";
 import app from "../../firebase-config";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import Swal from "sweetalert2";
 
 const auth = getAuth();
@@ -42,9 +42,7 @@ const handleLoginUser = (email, password) => {
 
 const handleLogoutUser = () => {
   return (dispatch) => {
-    app
-      .auth()
-      .signOut()
+      signOut(auth)
       .then(() => {
         dispatch(logoutSuccess());
       });
