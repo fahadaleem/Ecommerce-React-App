@@ -13,10 +13,12 @@ import {
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import { handleLoginUser } from "../../../redux/auth/authActions";
+import Alert from '@material-ui/lab/Alert';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#297F87",
     position: "absolute",
     height: "100%",
     width: "100%",
@@ -35,12 +37,15 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     "& .MuiInput-underline:after": {
-      borderColor: "#00ADB5",
+      borderColor: "#297F87",
     },
   },
   submitBtn: {
-    backgroundColor: "#00ADB5",
+    backgroundColor: "#297F87",
     color: "#fff",
+    '&:hover':{
+      color:"#297F87"
+    }
   },
   formLabel: {
     marginBottom: "4px",
@@ -71,6 +76,7 @@ const AdminLogin = (props) => {
           <Typography variant="h3" color="initial" align="center">
             Shopeact Admin
           </Typography>
+          {error&&<Alert severity="error" style={{margin:"5px 0",}}>{error}</Alert>}
           <Box my={3}>
             <FormControl fullWidth className={classes.textField}>
               <FormLabel className={classes.formLabel}>Email</FormLabel>

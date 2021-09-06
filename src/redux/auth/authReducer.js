@@ -1,7 +1,9 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from "./authTypes";
 
 const initialState = {
-  isUserLoggedIn: false,
+  isUserLoggedIn: localStorage.getItem("userLogin")
+    ? JSON.parse(localStorage.getItem("userLogin"))
+    : false,
   user: {},
   error: null,
 };

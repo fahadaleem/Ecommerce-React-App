@@ -31,6 +31,7 @@ const handleLoginUser = (email, password) => {
     console.log(email, password, "fahad");
     signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
+        localStorage.setItem("userLogin", JSON.stringify(true));
         dispatch(loginSuccess(user));
       })
       .catch((error) => {
