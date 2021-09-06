@@ -13,6 +13,8 @@ import { handleLogoutUser } from "../../../redux/auth/authActions";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#297F87",
+    width:'calc( 100% - 200px )',
+    marginLeft: 200,
   },
   btn:{
       color:"#fff",
