@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Drawer,
@@ -8,6 +8,7 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -17,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     // padding:"20px",
     border: "none",
     [theme.breakpoints.down("sm")]: {
-        display:"none"    
-    }
+      display: "none",
+    },
   },
   menuItem: {
     padding: "10px 20px",
@@ -44,6 +45,15 @@ const SideDrawer = () => {
   const handleSetSelectedClass = (name) => {
     setSelected(name);
   };
+
+  // set the selected class according to the path name
+  useEffect(() => {
+    const location = window.location.pathname.lastIndexOf("/");
+    // split the path name and get the last part
+    const path = window.location.pathname.slice(location + 1);
+    handleSetSelectedClass(path);
+  }, []);
+
   return (
     <Drawer
       variant="permanent"
@@ -71,14 +81,16 @@ const SideDrawer = () => {
         >
           All Products
         </MenuItem>
-        <MenuItem
-          className={`${classes.menuItem} ${
-            selected === "add-new-product" && classes.selectedMenu
-          }`}
-          onClick={() => handleSetSelectedClass("add-new-product")}
-        >
-          Add New Product
-        </MenuItem>
+        <Link to="/admin/add-new-product" style={{ textDecoration: "none" }}>
+          <MenuItem
+            className={`${classes.menuItem} ${
+              selected === "add-new-product" && classes.selectedMenu
+            }`}
+            onClick={() => handleSetSelectedClass("add-new-product")}
+          >
+            Add New Product
+          </MenuItem>
+        </Link>
         <MenuItem
           className={`${classes.menuItem} ${
             selected === "all-orders" && classes.selectedMenu

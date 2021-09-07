@@ -44,6 +44,7 @@ const handleLogoutUser = () => {
   return (dispatch) => {
       signOut(auth)
       .then(() => {
+        localStorage.setItem("userLogin", JSON.stringify(false));
         dispatch(logoutSuccess());
       });
   };
