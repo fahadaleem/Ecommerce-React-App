@@ -10,6 +10,8 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import { handleSetPageNameAction } from "../../../redux/navbar/navbarActions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -35,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     color: "#297F87",
   },
-  toggleBtn:{
-      color:"#fff"
-  }
+  toggleBtn: {
+    color: "#fff",
+  },
 }));
 
-const MobileSideDrawer = () => {
+const MobileSideDrawer = (props) => {
   const classes = useStyles();
   const [selected, setSelected] = useState("summary-report");
   const handleSetSelectedClass = (name) => {
@@ -70,7 +72,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "summary-report" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("summary-report")}
+            onClick={() => {
+              handleSetSelectedClass("summary-report");
+              props.handleSetPageName("Summary Report");
+            }}
           >
             Summary Report
           </MenuItem>
@@ -78,7 +83,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "all-products" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("all-products")}
+            onClick={() => {
+              handleSetSelectedClass("all-products");
+              props.handleSetPageName("All Products");
+            }}
           >
             All Products
           </MenuItem>
@@ -86,7 +94,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "add-new-product" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("add-new-product")}
+            onClick={() => {
+              handleSetSelectedClass("add-new-product");
+              props.handleSetPageName("Add New Product");
+            }}
           >
             Add New Product
           </MenuItem>
@@ -94,7 +105,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "all-orders" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("all-orders")}
+            onClick={() => {
+              handleSetSelectedClass("all-orders");
+              props.handleSetPageName("All Orders");
+            }}
           >
             All Orders
           </MenuItem>
@@ -102,7 +116,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "shipments" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("shipments")}
+            onClick={() => {
+              handleSetSelectedClass("shipments");
+              props.handleSetPageName("Shipments");
+            }}
           >
             Shipments
           </MenuItem>
@@ -110,7 +127,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "stocks" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("stocks")}
+            onClick={() => {
+              handleSetSelectedClass("stocks");
+              props.handleSetPageName("Stocks");
+            }}
           >
             Stocks
           </MenuItem>
@@ -118,7 +138,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "payments" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("payments")}
+            onClick={() => {
+              handleSetSelectedClass("payments");
+              props.handleSetPageName("Payments");
+            }}
           >
             Payments
           </MenuItem>
@@ -126,7 +149,10 @@ const MobileSideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "users" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("users")}
+            onClick={() => {
+              handleSetSelectedClass("users");
+              props.handleSetPageName("Users");
+            }}
           >
             Users
           </MenuItem>
@@ -136,4 +162,11 @@ const MobileSideDrawer = () => {
   );
 };
 
-export default MobileSideDrawer;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSetPageName: (pageName) =>
+      dispatch(handleSetPageNameAction(pageName)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(MobileSideDrawer);

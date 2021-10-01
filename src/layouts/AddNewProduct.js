@@ -12,7 +12,6 @@ const AddNewProduct = () => {
   const classes = useStyles();
   return (
     <Container maxWidth="lg">
-        <Typography variant="h5" color="initial" className={classes.pageHeading}>Add new product</Typography>
       <AddNewProductForm />
     </Container>
   );

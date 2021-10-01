@@ -13,8 +13,7 @@ import {
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import { handleLoginUser } from "../../../redux/auth/authActions";
-import Alert from '@material-ui/lab/Alert';
-
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
   submitBtn: {
     backgroundColor: "#297F87",
     color: "#fff",
-    '&:hover':{
-      color:"#297F87"
-    }
+    "&:hover": {
+      color: "#297F87",
+    },
   },
   formLabel: {
     marginBottom: "4px",
@@ -76,7 +75,11 @@ const AdminLogin = (props) => {
           <Typography variant="h3" color="initial" align="center">
             Shopeact Admin
           </Typography>
-          {error&&<Alert severity="error" style={{margin:"5px 0",}}>{error}</Alert>}
+          {error && (
+            <Alert severity="error" style={{ margin: "5px 0" }}>
+              {error}
+            </Alert>
+          )}
           <Box my={3}>
             <FormControl fullWidth className={classes.textField}>
               <FormLabel className={classes.formLabel}>Email</FormLabel>
@@ -126,7 +129,7 @@ const AdminLogin = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    error: state.authReducer.error,
+    error: state.auth.error,
   };
 };
 

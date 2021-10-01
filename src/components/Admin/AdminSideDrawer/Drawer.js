@@ -9,12 +9,14 @@ import {
   Box,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { handleSetPageNameAction } from "../../../redux/navbar/navbarActions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: "200px",
     backgroundColor: "#297F87",
-    padding: "80px 0",
+    padding: "10px 0",
     // padding:"20px",
     border: "none",
     [theme.breakpoints.down("sm")]: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItem: {
     padding: "10px 20px",
+    fontSize: ".875rem",
     margin: "10px 0px 10px 5px",
     color: "#fff",
     borderTopLeftRadius: "20px",
@@ -37,11 +40,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     color: "#297F87",
   },
+  adminName: {
+    color: "#fff",
+    fontSize: "1.3rem",
+    padding: "20px 25px",
+    height: "100px",
+  },
 }));
 
-const SideDrawer = () => {
+const SideDrawer = (props) => {
   const classes = useStyles();
   const [selected, setSelected] = useState("summary-report");
+  const { handleSetPageName } = props;
   const handleSetSelectedClass = (name) => {
     setSelected(name);
   };
@@ -64,12 +74,18 @@ const SideDrawer = () => {
       }}
       //   onClose={}
     >
+      <Typography variant="h5" color="initial" className={classes.adminName}>
+        Shopeact Mobile Store
+      </Typography>
       <Box>
         <MenuItem
           className={`${classes.menuItem} ${
             selected === "summary-report" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("summary-report")}
+          onClick={() => {
+            handleSetSelectedClass("summary-report");
+            handleSetPageName("Summary Report");
+          }}
         >
           Summary Report
         </MenuItem>
@@ -77,7 +93,10 @@ const SideDrawer = () => {
           className={`${classes.menuItem} ${
             selected === "all-products" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("all-products")}
+          onClick={() => {
+            handleSetSelectedClass("all-products");
+            handleSetPageName("All Products");
+          }}
         >
           All Products
         </MenuItem>
@@ -86,7 +105,10 @@ const SideDrawer = () => {
             className={`${classes.menuItem} ${
               selected === "add-new-product" && classes.selectedMenu
             }`}
-            onClick={() => handleSetSelectedClass("add-new-product")}
+            onClick={() => {
+              handleSetSelectedClass("add-new-product");
+              handleSetPageName("Add New Product");
+            }}
           >
             Add New Product
           </MenuItem>
@@ -95,7 +117,10 @@ const SideDrawer = () => {
           className={`${classes.menuItem} ${
             selected === "all-orders" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("all-orders")}
+          onClick={() => {
+            handleSetSelectedClass("all-orders");
+            handleSetPageName("All Orders");
+          }}
         >
           All Orders
         </MenuItem>
@@ -103,7 +128,10 @@ const SideDrawer = () => {
           className={`${classes.menuItem} ${
             selected === "shipments" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("shipments")}
+          onClick={() => {
+            handleSetSelectedClass("shipments");
+            handleSetPageName("Shipments");
+          }}
         >
           Shipments
         </MenuItem>
@@ -111,7 +139,10 @@ const SideDrawer = () => {
           className={`${classes.menuItem} ${
             selected === "stocks" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("stocks")}
+          onClick={() => {
+            handleSetSelectedClass("stocks");
+            handleSetPageName("Stocks");
+          }}
         >
           Stocks
         </MenuItem>
@@ -119,7 +150,10 @@ const SideDrawer = () => {
           className={`${classes.menuItem} ${
             selected === "payments" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("payments")}
+          onClick={() => {
+            handleSetSelectedClass("payments");
+            handleSetPageName("Payments");
+          }}
         >
           Payments
         </MenuItem>
@@ -127,7 +161,10 @@ const SideDrawer = () => {
           className={`${classes.menuItem} ${
             selected === "users" && classes.selectedMenu
           }`}
-          onClick={() => handleSetSelectedClass("users")}
+          onClick={() => {
+            handleSetSelectedClass("users");
+            handleSetPageName("Users");
+          }}
         >
           Users
         </MenuItem>
@@ -136,4 +173,11 @@ const SideDrawer = () => {
   );
 };
 
-export default SideDrawer;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSetPageName: (pageName) =>
+      dispatch(handleSetPageNameAction(pageName)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SideDrawer);

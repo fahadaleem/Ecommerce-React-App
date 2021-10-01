@@ -10,7 +10,7 @@ const AdminDashboard = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.authReducer.isUserLoggedIn,
+    isLoggedIn: state.auth.isUserLoggedIn,
   };
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
   AppBar,
@@ -13,15 +13,20 @@ import {
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { handleLogoutUser } from "../../../redux/auth/authActions";
 import MobileSideDrawer from "../AdminSideDrawer/MobileDrawer";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#297F87",
     width: "calc( 100% - 200px )",
+    height: "100px",
     marginLeft: 200,
     [theme.breakpoints.down("sm")]: {
       width: "100%",
       margin: "0",
     },
+  },
+  toolBar: {
+    height: "100px",
   },
   btn: {
     color: "#fff",
@@ -39,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = (props) => {
   const classes = useStyles();
   const { handleLogout } = props;
+  const [pageName, setPageName] = useState("Summary Report");
+
   return (
     <AppBar
       position="static"
@@ -46,12 +53,12 @@ const Navbar = (props) => {
       className={classes.root}
       elevation={1}
     >
-      <Toolbar>
+      <Toolbar className={classes.toolBar}>
         <Hidden smUp>
           <MobileSideDrawer />
         </Hidden>
-        <Typography variant="h6" className={classes.adminHeading}>
-          Shopeact Admin Panel
+        <Typography variant="h5" color="initial" className={classes.pageName}>
+          {props.pageName}
         </Typography>
         <Hidden smDown>
           <Box ml="auto">
@@ -87,4 +94,11 @@ const mapDispatchToProps = (dispatch) => {
     handleLogout: () => dispatch(handleLogoutUser()),
   };
 };
-export default connect(null, mapDispatchToProps)(Navbar);
+
+const mapStateToProps = (state) => {
+  return {
+    pageName: state.navbar.pageName,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
